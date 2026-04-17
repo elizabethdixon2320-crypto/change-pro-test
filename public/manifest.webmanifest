@@ -1,0 +1,18 @@
+{
+  "name": "CHANGE 三项训练",
+  "short_name": "CHANGE",
+  "description": "打开就能练，不用思考。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
