@@ -85,11 +85,11 @@ export default function Onboarding() {
         </div>
       </div>
 
-      <div className="flex-1 min-h-0 flex flex-col justify-center gap-6">
+      <div className="flex-1 min-h-0 flex flex-col justify-center gap-8">
         <AnimatePresence mode="wait">
           {step === 0 && (
             <StepBlock key={0}>
-              <Title>一周能练<br />几天？</Title>
+              <Title>一周能练几天？</Title>
               <div className="flex gap-3">
                 {[2, 3, 4].map((n) => (
                   <Choice
@@ -107,7 +107,7 @@ export default function Onboarding() {
           )}
           {step === 1 && (
             <StepBlock key={1}>
-              <Title>是否有<br />健身经验？</Title>
+              <Title>是否有健身经验？</Title>
               <div className="flex gap-3">
                 <Choice label="没有" active={exp === 'none'} onClick={() => { haptic('light'); setExp('none') }} />
                 <Choice label="有基础" active={exp === 'basic'} onClick={() => { haptic('light'); setExp('basic') }} />
@@ -116,7 +116,7 @@ export default function Onboarding() {
           )}
           {step === 2 && (
             <StepBlock key={2}>
-              <Title>更喜欢<br />哪种方式？</Title>
+              <Title>更喜欢哪种方式？</Title>
               <div className="flex gap-3">
                 <Choice label="跑步" active={pref === 'cardio'} onClick={() => { haptic('light'); setPref('cardio') }} />
                 <Choice label="器械" active={pref === 'machine'} onClick={() => { haptic('light'); setPref('machine') }} />
@@ -148,7 +148,7 @@ function StepBlock({ children }: { children: React.ReactNode }) {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -16 }}
       transition={{ duration: 0.25 }}
-      className="flex flex-col gap-6"
+      className="flex flex-col gap-8"
     >
       {children}
     </motion.div>
@@ -157,7 +157,7 @@ function StepBlock({ children }: { children: React.ReactNode }) {
 
 function Title({ children }: { children: React.ReactNode }) {
   return (
-    <h1 className="text-[clamp(2.25rem,10vw,3.25rem)] font-black leading-[1.05] tracking-tight">
+    <h1 className="text-center font-black leading-[1.1] tracking-tight whitespace-nowrap text-[clamp(1.75rem,7.5vw,2.5rem)]">
       {children}
     </h1>
   )
