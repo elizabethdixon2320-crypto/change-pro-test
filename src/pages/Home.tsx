@@ -28,7 +28,7 @@ export default function Home() {
           <img
             src="/change-pro.png"
             alt="CHANGE PRO"
-            className="h-8 w-auto select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+            className="h-8 w-auto select-none"
             draggable={false}
           />
           <div className="flex gap-2">
