@@ -25,7 +25,12 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="text-[11px] tracking-[0.4em] text-white/50 font-bold">CHANGE</div>
+          <img
+            src="/change-pro.png"
+            alt="CHANGE PRO"
+            className="h-8 w-auto select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+            draggable={false}
+          />
           <div className="flex gap-2">
             <Link to="/records" className="ghost-btn" onClick={() => haptic('light')}>
               记录
@@ -37,13 +42,13 @@ export default function Home() {
         </motion.div>
 
         <motion.div
-          className="mt-5 shrink-0"
+          className="mt-6 shrink-0 text-center"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.45 }}
         >
-          <h1 className="font-black leading-[1.05] tracking-tight text-[clamp(2rem,8.5vw,2.75rem)]">
-            今天你练<br />哪一个？
+          <h1 className="font-black leading-[1.1] tracking-tight whitespace-nowrap text-[clamp(1.5rem,7vw,2.25rem)]">
+            今天你练哪一个？
           </h1>
           <div className="mt-3 inline-flex items-center gap-2 text-sm">
             <span className="text-white/40">今日推荐</span>
