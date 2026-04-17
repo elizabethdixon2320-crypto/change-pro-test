@@ -10,9 +10,17 @@ export default function Home() {
 
   return (
     <PageWrap>
-      <div className="page">
+      <div
+        className="relative w-full flex flex-col px-5 overflow-hidden"
+        style={{
+          height: '100dvh',
+          paddingTop: 'max(env(safe-area-inset-top), 16px)',
+          paddingBottom: 'max(env(safe-area-inset-bottom), 16px)',
+          zIndex: 2,
+        }}
+      >
         <motion.div
-          className="flex justify-between items-center pt-2"
+          className="flex justify-between items-center shrink-0"
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
@@ -29,32 +37,32 @@ export default function Home() {
         </motion.div>
 
         <motion.div
-          className="mt-8 mb-6"
+          className="mt-5 shrink-0"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
+          transition={{ delay: 0.1, duration: 0.45 }}
         >
-          <h1 className="text-[2.75rem] font-black leading-[1.05] tracking-tight">
+          <h1 className="font-black leading-[1.05] tracking-tight text-[clamp(2rem,8.5vw,2.75rem)]">
             今天你练<br />哪一个？
           </h1>
-          <div className="mt-4 inline-flex items-center gap-2 text-sm">
+          <div className="mt-3 inline-flex items-center gap-2 text-sm">
             <span className="text-white/40">今日推荐</span>
             <span
-              className={`px-3 py-1 rounded-full font-black text-black ${WORKOUT_THEMES[next].bg} animate-glow-pulse`}
+              className={`px-3 py-1 rounded-full font-black text-black text-xs ${WORKOUT_THEMES[next].bg} animate-glow-pulse`}
             >
               {WORKOUT_LABELS[next]}
             </span>
           </div>
         </motion.div>
 
-        <div className="flex-1 flex flex-col gap-3 justify-center">
+        <div className="flex-1 min-h-0 flex flex-col gap-3 justify-center py-4">
           {(['run', 'pull', 'squat'] as WorkoutType[]).map((t, i) => (
             <WorkoutCard key={t} type={t} recommended={t === next} delay={0.2 + i * 0.08} />
           ))}
         </div>
 
         <motion.div
-          className="pt-4 pb-2 text-center text-xs text-white/30 tracking-[0.3em]"
+          className="shrink-0 text-center text-[10px] text-white/30 tracking-[0.3em]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
@@ -89,26 +97,28 @@ function WorkoutCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="flex-1 min-h-0"
     >
       <Link
         to={routeMap[type]}
         onClick={() => haptic('medium')}
-        className={`card-button block ${theme.bg} ${recommended ? theme.glow : ''}`}
+        className={`card-button block h-full ${theme.bg} ${recommended ? theme.glow : ''}`}
       >
-        <div className="relative p-6 flex items-center justify-between text-black">
-          <div className="flex flex-col gap-2">
-            <div className="text-[11px] font-black tracking-[0.3em] opacity-60">
+        <div className="relative h-full px-5 py-4 flex items-center justify-between text-black">
+          <div className="flex flex-col gap-1 min-w-0">
+            <div className="text-[10px] font-black tracking-[0.3em] opacity-60">
               {WORKOUT_INDEX[type]}
             </div>
-            <div className="text-[2.4rem] font-black leading-none tracking-tight">
+            <div className="text-[clamp(1.75rem,7vw,2.25rem)] font-black leading-none tracking-tight">
               {WORKOUT_LABELS[type]}
             </div>
-            <div className="text-xs font-bold opacity-60 tracking-wider mt-1">{meta[type]}</div>
+            <div className="text-[11px] font-bold opacity-60 tracking-wider">{meta[type]}</div>
           </div>
-          <div className="flex flex-col items-end gap-2">
+
+          <div className="flex flex-col items-end gap-1.5 shrink-0">
             <svg
-              width="44"
-              height="44"
+              width="36"
+              height="36"
               viewBox="0 0 44 44"
               className="opacity-90"
               fill="none"
@@ -123,7 +133,7 @@ function WorkoutCard({
               />
             </svg>
             {recommended && (
-              <div className="text-[10px] font-black tracking-widest bg-black/80 text-white px-2 py-0.5 rounded">
+              <div className="text-[9px] font-black tracking-widest bg-black/80 text-white px-2 py-0.5 rounded">
                 推荐
               </div>
             )}
@@ -131,9 +141,9 @@ function WorkoutCard({
         </div>
 
         <svg
-          className="absolute -right-8 -bottom-8 opacity-10 pointer-events-none"
-          width="160"
-          height="160"
+          className="absolute -right-6 -bottom-6 opacity-10 pointer-events-none"
+          width="110"
+          height="110"
           viewBox="0 0 160 160"
           fill="none"
         >
