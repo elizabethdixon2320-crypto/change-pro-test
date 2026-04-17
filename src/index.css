@@ -84,9 +84,10 @@ button {
     @apply bg-paper text-ink border-paper;
   }
   .page {
-    @apply relative min-h-screen w-full flex flex-col px-6
-           pt-[max(env(safe-area-inset-top),24px)]
-           pb-[max(env(safe-area-inset-bottom),24px)];
+    @apply relative w-full flex flex-col px-6
+           pt-[max(env(safe-area-inset-top),20px)]
+           pb-[max(env(safe-area-inset-bottom),20px)];
+    min-height: 100dvh;
     z-index: 2;
   }
 

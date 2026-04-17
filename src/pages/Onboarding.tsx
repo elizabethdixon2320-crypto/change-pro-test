@@ -24,33 +24,68 @@ export default function Onboarding() {
     }
   }
 
+  const back = () => {
+    if (step === 0) return
+    haptic('light')
+    setStep(step - 1)
+  }
+
   const canNext =
     (step === 0 && weeklyDays !== null) ||
     (step === 1 && exp !== null) ||
     (step === 2 && pref !== null)
 
   return (
-    <div className="page justify-between">
-      <div className="pt-6">
-        <div className="text-[11px] tracking-[0.4em] text-white/50 mb-4 font-bold">CHANGE</div>
-        <div className="flex gap-1.5">
+    <div
+      className="relative w-full flex flex-col px-6 overflow-hidden"
+      style={{
+        height: '100dvh',
+        paddingTop: 'max(env(safe-area-inset-top), 16px)',
+        paddingBottom: 'max(env(safe-area-inset-bottom), 16px)',
+        zIndex: 2,
+      }}
+    >
+      <div className="flex items-center gap-3 pt-1 shrink-0">
+        <button
+          onClick={back}
+          disabled={step === 0}
+          className={`w-9 h-9 rounded-full flex items-center justify-center border transition-opacity ${
+            step === 0
+              ? 'opacity-0 pointer-events-none border-white/10'
+              : 'border-white/20 bg-black/30 backdrop-blur-md active:scale-95'
+          }`}
+          aria-label="返回上一步"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M15 18L9 12L15 6"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        <div className="flex gap-1.5 flex-1">
           {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="h-1 flex-1 rounded-full bg-white/15 overflow-hidden"
-            >
+            <div key={i} className="h-1 flex-1 rounded-full bg-white/15 overflow-hidden">
               <motion.div
                 className="h-full bg-run"
                 initial={{ width: '0%' }}
                 animate={{ width: i <= step ? '100%' : '0%' }}
                 transition={{ duration: 0.35 }}
               />
-            </motion.div>
+            </div>
           ))}
+        </div>
+
+        <div className="text-[10px] tracking-[0.3em] text-white/40 font-bold">
+          {step + 1}/3
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col justify-center gap-10">
+      <div className="flex-1 min-h-0 flex flex-col justify-center gap-6">
         <AnimatePresence mode="wait">
           {step === 0 && (
             <StepBlock key={0}>
@@ -91,11 +126,11 @@ export default function Onboarding() {
         </AnimatePresence>
       </div>
 
-      <div className="pb-2">
+      <div className="shrink-0 pt-2">
         <button
           disabled={!canNext}
           onClick={next}
-          className={`w-full rounded-2xl px-6 py-6 text-2xl font-black tracking-wider transition-all active:scale-[0.97] ${
+          className={`w-full rounded-2xl px-6 py-5 text-xl font-black tracking-wider transition-all active:scale-[0.97] ${
             canNext ? 'bg-run text-black shadow-[0_8px_32px_rgba(255,90,31,0.4)]' : 'bg-white/10 text-white/30'
           }`}
         >
@@ -109,11 +144,11 @@ export default function Onboarding() {
 function StepBlock({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
+      initial={{ opacity: 0, x: 16 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col gap-8"
+      exit={{ opacity: 0, x: -16 }}
+      transition={{ duration: 0.25 }}
+      className="flex flex-col gap-6"
     >
       {children}
     </motion.div>
@@ -121,15 +156,21 @@ function StepBlock({ children }: { children: React.ReactNode }) {
 }
 
 function Title({ children }: { children: React.ReactNode }) {
-  return <h1 className="text-5xl font-black leading-[1.05] tracking-tight">{children}</h1>
+  return (
+    <h1 className="text-[clamp(2.25rem,10vw,3.25rem)] font-black leading-[1.05] tracking-tight">
+      {children}
+    </h1>
+  )
 }
 
 function Choice({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className={`flex-1 rounded-2xl py-6 text-xl font-black border-2 transition-all active:scale-[0.96] ${
-        active ? 'bg-paper text-ink border-paper' : 'border-white/15 text-white/70'
+      className={`flex-1 rounded-2xl py-5 text-lg font-black border-2 transition-all active:scale-[0.96] ${
+        active
+          ? 'bg-paper text-ink border-paper shadow-[0_4px_20px_rgba(255,255,255,0.15)]'
+          : 'border-white/15 text-white/70 bg-black/20 backdrop-blur-sm'
       }`}
     >
       {label}
